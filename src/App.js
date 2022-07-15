@@ -1,6 +1,6 @@
 import { Navbar, Products, Cart } from './components';
 import { useEffect, useState } from "react";
-import { BrowserRouter as Router, Routes, Route, useNavigate, Navigate } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Login from "./components/Auth/Login";
 import Register from "./components/Auth/Register";
 import Reset from "./components/Auth/Reset";
@@ -71,12 +71,20 @@ export default function App() {
               </PrivateRoute>
             }
           />
+          <Route
+            path="/addproduct"
+            element={
+              <PrivateRoute>
+                <RegProduct/>
+              </PrivateRoute>
+            }
+          />
           {/* <Route exact path="/home" element={<Products products = {products} onAddToCart = {handleAddToCart} />} /> */}
           {/* <Route exact path="/cart" element = {<Cart cartItem = {cartItem} />} /> */}
           <Route exact path="/register" element={<Register />} />
           <Route exact path="/reset" element={<Reset />} />
           <Route exact path="/dashboard" element={<Dashboard />} />
-          <Route exact path="/addproduct" element={<RegProduct />} />
+          {/* <Route exact path="/addproduct" element={<RegProduct />} /> */}
           {/* <Route exact path="/demo" element={<Demo />} /> */}
           {/* <Route exact path="/checkout" element={<Checkout/>} /> */}
         </Routes>

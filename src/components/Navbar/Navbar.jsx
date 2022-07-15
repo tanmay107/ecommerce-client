@@ -33,7 +33,8 @@ export default function Navbar() {
                   </IconButton>
                   <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
                   </Typography>
-                    <Button color="inherit" component={Link} to="/cart">Cart</Button>
+                    {user && <Button color="inherit" component={Link} to="/cart">Cart</Button>}
+                    {user && <Button color="inherit" component={Link} to="/addproduct">Add Product</Button>}
                     { user ? <Button color="inherit" onClick={logout}>Logout</Button> : <Button color="inherit" component={Link} to="/">Login</Button> }
               </Toolbar>
           </AppBar>
