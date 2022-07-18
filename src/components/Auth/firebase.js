@@ -1,6 +1,6 @@
 import { initializeApp } from "firebase/app";
 import { GoogleAuthProvider, getAuth, signInWithPopup, signInWithEmailAndPassword, createUserWithEmailAndPassword, sendPasswordResetEmail, signOut } from "firebase/auth";
-import { getFirestore, query, getDocs, collection, where, addDoc } from "firebase/firestore";
+import { getFirestore, query, getDocs, collection, where, addDoc, doc, setDoc } from "firebase/firestore";
 
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
@@ -115,12 +115,13 @@ const getProducts = async () => {
 
 const addToBasket = async ( uid, total_amt, cart, createdAt ) => {
   try {
-    const addDoc = await addDoc(collection(db, "orders"), {
+    const addDoc = await setDoc(doc(db, "orders"), {
       id : uid,
       total_amt : total_amt,
       cart: cart,
       createdAt: createdAt,
     })
+    console.log("Document written with ID: ", addDoc.id);
   } catch (e) {
     console.error("Error adding the document ", e);
   }

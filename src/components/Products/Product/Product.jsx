@@ -8,14 +8,18 @@ import {
   IconButton
 } from "@material-ui/core";
 import { AddShoppingCart } from "@material-ui/icons";
-import { Link } from "react-router-dom";
 import useStyles from './styles';
+import { addToBasket } from "../../Auth/firebase";
 
 const Product = ({ product, onAddToCart }) => {
 
   const classes = useStyles();
 
   const handleAddToCart = () => onAddToCart(product);
+
+  const handleAddToCartFirebase = () => {
+    addToBasket( uid, product, )
+  }
 
   return (
     <Card className={classes.root}>

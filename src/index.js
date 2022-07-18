@@ -1,5 +1,7 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
+import reducer, { initialState } from "./Context/reducer";
+import { StateProvider } from "./Context/StateProvider";
 
 import App from "./App";
 
@@ -8,6 +10,8 @@ const root = createRoot(rootElement);
 
 root.render(
   <StrictMode>
-    <App />
+    <StateProvider initialState = {initialState} reducer = {reducer}>
+      <App />
+    </StateProvider>
   </StrictMode>
 );
