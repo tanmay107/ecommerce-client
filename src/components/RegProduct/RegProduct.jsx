@@ -4,25 +4,19 @@ import './RegProduct.css'
 
 export default function RegProduct() {
 
-    const [id, setId] = useState();
+    const [image, setImage] = useState();
     const [title, setTitle] = useState();
     const [description, setDescription] = useState();
     const [price, setPrice] = useState();
 
     const handleClick = (e) => {
         e.preventDefault();
-        registerProduct(id, title, description, price)
+        registerProduct(title, description, price, image)
     }
 
   return (
     <div className="add_prod">
         <div className="add_prod__container">
-          <input
-            type="number"
-            className="add_prod__textBox"
-            onChange={(e) => setId(e.target.value)}
-            placeholder="Id"
-          />
           <input
             type="text"
             className="add_prod__textBox"
@@ -40,6 +34,12 @@ export default function RegProduct() {
             className="add_prod__textBox"
             onChange={(e) => setPrice(e.target.value)}
             placeholder="Price"
+          />
+          <input
+            type="text"
+            className="add_prod__textBox"
+            onChange={(e) => setImage(e.target.value)}
+            placeholder="Image"
           />
           <button
             className="add_prod__btn"

@@ -113,6 +113,19 @@ const getProducts = async () => {
   }
 }
 
+const addToBasket = async ( uid, total_amt, cart, createdAt ) => {
+  try {
+    const addDoc = await addDoc(collection(db, "orders"), {
+      id : uid,
+      total_amt : total_amt,
+      cart: cart,
+      createdAt: createdAt,
+    })
+  } catch (e) {
+    console.error("Error adding the document ", e);
+  }
+}
+
 export {
     auth,
     db,
@@ -123,4 +136,5 @@ export {
     logout,
     registerProduct,
     getProducts,
+    addToBasket,
   };

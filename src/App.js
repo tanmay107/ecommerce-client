@@ -9,7 +9,8 @@ import Demo from "./components/Auth/Demo";
 import Checkout from "./components/Checkout/Checkout";
 import useAuth from './hook/useAuth';
 import RegProduct from './components/RegProduct/RegProduct';
-import { getProducts } from './components/Auth/firebase';
+import { addToBasket, auth, getProducts } from './components/Auth/firebase';
+import { useAuthState } from 'react-firebase-hooks/auth';
 export default function App() {
 
   const [products, setProducts] = useState([]);
