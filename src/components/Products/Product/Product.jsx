@@ -18,7 +18,7 @@ const Product = ({ product, onAddToCart }) => {
   const handleAddToCart = () => onAddToCart(product);
 
   const handleAddToCartFirebase = () => {
-    addToBasket( uid, product, )
+    addToBasket( uid, {"product_title": product.title, "product_desc": product.description, "product_price": product.price, "product_image": product.image } )
   }
 
   return (

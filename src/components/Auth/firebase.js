@@ -113,13 +113,11 @@ const getProducts = async () => {
   }
 }
 
-const addToBasket = async ( uid, total_amt, cart, createdAt ) => {
+const addToBasket = async ( uid, cart, createdAt ) => {
   try {
     const addDoc = await setDoc(doc(db, "orders"), {
       id : uid,
-      total_amt : total_amt,
       cart: cart,
-      createdAt: createdAt,
     })
     console.log("Document written with ID: ", addDoc.id);
   } catch (e) {
