@@ -1,14 +1,11 @@
-import React, { useEffect } from "react";
+import React from "react";
 import Grid from "@material-ui/core/Grid";
 import Product from "./Product/Product";
-import useAuth from "../../hook/useAuth";
 import useStyles from './styles';
 
 const Products = ({ products, onAddToCart }) => {
 
-  // useAuth()
   const classes = useStyles();
-
   return (
     <main className={classes.content} >
       <div className={classes.toolbar} />

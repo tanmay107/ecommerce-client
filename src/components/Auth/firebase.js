@@ -79,17 +79,37 @@ const logout = () => {
     signOut(auth);
 };
 
-const registerProduct = async (id, title, description, price) => {
+const registerProduct = async ( title, description, price, image) => {
   try {
     const docRef = await addDoc(collection(db, "products"), {
-      id: id,
       title: title,
       description: description,
       price: price,
+      image: image,
     });
     console.log("Document written with ID: ", docRef.id);
   } catch (e) {
     console.error("Error adding document: ", e);
+  }
+}
+
+const getProducts = async () => {
+  try {
+    const querySnapshot = await getDocs(collection(db, "products"));
+    const list = [];
+      querySnapshot.forEach((doc) => {
+      list.push({
+        id: doc.id,
+        title: doc.data().title,
+        price: doc.data().price,
+        description: doc.data().description,
+        image: doc.data().image,
+      });
+    })
+    return list
+  }
+  catch (e){
+    console.error("Error fetching documents: ", e)
   }
 }
 
@@ -102,4 +122,5 @@ export {
     sendPasswordReset,
     logout,
     registerProduct,
+    getProducts,
   };

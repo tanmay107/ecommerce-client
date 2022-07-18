@@ -9,17 +9,16 @@ import Demo from "./components/Auth/Demo";
 import Checkout from "./components/Checkout/Checkout";
 import useAuth from './hook/useAuth';
 import RegProduct from './components/RegProduct/RegProduct';
+import { getProducts } from './components/Auth/firebase';
 export default function App() {
 
   const [products, setProducts] = useState([]);
   let cartItem = [];
 
   useEffect(() => {
-    fetch('https://fakestoreapi.com/products')
-            .then(res=>res.json())
-            .then(json=>setProducts(json))
-  }, [])
-
+    getProducts().then(x => setProducts(x))
+  }, []); 
+  
   const PrivateRoute = ({ children }) => {
     useAuth();
     return children;
