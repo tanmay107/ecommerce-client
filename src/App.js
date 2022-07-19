@@ -11,13 +11,17 @@ import useAuth from './hook/useAuth';
 import RegProduct from './components/RegProduct/RegProduct';
 import { addToBasket, auth, getProducts } from './components/Auth/firebase';
 import { useAuthState } from 'react-firebase-hooks/auth';
+import axios from 'axios';
 export default function App() {
 
   const [products, setProducts] = useState([]);
   let cartItem = [];
 
   useEffect(() => {
-    getProducts().then(x => setProducts(x))
+    // getProducts().then(x => setProducts(x))
+    axios
+      .get("http://localhost:4000/")
+      .then(res => setProducts(res.data))
   }, []); 
   
   const PrivateRoute = ({ children }) => {
@@ -25,7 +29,7 @@ export default function App() {
     return children;
   }
 
-
+ 
   const handleAddToCart = (product) => {
     cartItem.push(product);
   }

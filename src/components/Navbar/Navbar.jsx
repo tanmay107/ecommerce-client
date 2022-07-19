@@ -3,7 +3,6 @@ import React, { useEffect } from 'react';
 import { useAuthState } from "react-firebase-hooks/auth";
 import { Link, useNavigate } from "react-router-dom";
 import { auth, db, logout } from "../Auth/firebase";
-import { query, collection, getDocs, where } from "firebase/firestore";
 
 export default function Navbar() {
 
