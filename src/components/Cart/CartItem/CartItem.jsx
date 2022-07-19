@@ -2,9 +2,14 @@ import React from 'react';
 import { Typography, Button, Card, CardActions, CardContent, CardMedia } from '@material-ui/core';
 import useStyles from './styles';
 
-export default function CartItem({ item, freq }) {
+export default function CartItem({ item, freq, onRemoveFromCart }) {
 
   const classes = useStyles();
+
+  const handleRemove = (e) => {
+    e.preventDefault()
+    onRemoveFromCart(item)
+  }
 
   return (
       <Card className="cart-item">
@@ -16,6 +21,7 @@ export default function CartItem({ item, freq }) {
         <CardActions className={classes.cardActions}>
           <div className={classes.buttons}>
             <Typography>&nbsp;Quantity:- {freq[item.id]}&nbsp;</Typography>
+            <Button onClick={(e) => handleRemove(e)}>Remove</Button>
           </div>
         </CardActions>
       </Card>

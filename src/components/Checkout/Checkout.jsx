@@ -6,11 +6,18 @@ import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { Grid } from '@mui/material';
+import { addToBasket } from '../Auth/firebase';
 
 export default function Checkout() {
 
   const location = useLocation();
   let amount = location.state.amt;
+  let cart = location.state.cart;
+
+  const handleCheckout= (e) => {
+    e.preventDefault();
+    addToBasket( cart[0].uid, cart )
+  }
 
   return (
     <Grid container
@@ -32,7 +39,7 @@ export default function Checkout() {
             </Typography>
           </CardContent>
           <CardActions>
-            <Button size="small">Proceed For Payment</Button>
+            <Button size="small" onClick={(e) => handleCheckout(e)}>Proceed For Payment</Button>
           </CardActions>
         </Card>
       </Grid>

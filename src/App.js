@@ -16,12 +16,13 @@ export default function App() {
 
   const [products, setProducts] = useState([]);
   let cartItem = [];
+  const [user, loading, error] = useAuthState(auth);
 
   useEffect(() => {
-    // getProducts().then(x => setProducts(x))
-    axios
-      .get("http://localhost:4000/")
-      .then(res => setProducts(res.data))
+    getProducts().then(x => setProducts(x))
+    // axios
+    //   .get("http://localhost:4000/products/")
+    //   .then(res => setProducts(res.data))
   }, []); 
   
   const PrivateRoute = ({ children }) => {
@@ -31,7 +32,19 @@ export default function App() {
 
  
   const handleAddToCart = (product) => {
+    product.uid = user.uid;
     cartItem.push(product);
+  }
+
+  const handleRemoveFromCart = (product) => {
+    let i = 0;
+    while (i < cartItem.length) {
+      if (cartItem[i] === product) {
+        cartItem.splice(i, 1);
+      } else {
+        ++i;
+    }
+  }
   }
   
   return (
@@ -63,7 +76,7 @@ export default function App() {
             path="/cart"
             element={
               <PrivateRoute>
-                <Cart cartItem = {cartItem} />
+                <Cart cartItem = {cartItem} onRemoveFromCart = {handleRemoveFromCart} />
               </PrivateRoute>
             }
           />

@@ -115,11 +115,11 @@ const getProducts = async () => {
 
 const addToBasket = async ( uid, cart, createdAt ) => {
   try {
-    const addDoc = await setDoc(doc(db, "orders"), {
-      id : uid,
+    const doc = await addDoc(collection(db, "orders"), {
+      uid: uid,
       cart: cart,
-    })
-    console.log("Document written with ID: ", addDoc.id);
+    });
+    console.log("Document written with ID: ", doc.id);
   } catch (e) {
     console.error("Error adding the document ", e);
   }

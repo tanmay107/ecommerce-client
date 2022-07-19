@@ -15,7 +15,10 @@ const Product = ({ product, onAddToCart }) => {
 
   const classes = useStyles();
 
-  const handleAddToCart = () => onAddToCart(product);
+  const handleAddToCart = (e) => {
+    e.preventDefault();
+    onAddToCart(product);
+  }
 
   const handleAddToCartFirebase = () => {
     addToBasket( uid, {"product_title": product.title, "product_desc": product.description, "product_price": product.price, "product_image": product.image } )
@@ -36,7 +39,7 @@ const Product = ({ product, onAddToCart }) => {
         <Typography dangerouslySetInnerHTML={{ __html: product.description }} variant="body2" color="textSecondary" component="p" />
       </CardContent>
       <CardActions disableSpacing className={classes.cardActions}>
-        <IconButton aria-label="Add to Cart" onClick={handleAddToCart}>
+        <IconButton aria-label="Add to Cart" onClick={(e) => handleAddToCart(e)}>
           <AddShoppingCart />
         </IconButton>
       </CardActions>

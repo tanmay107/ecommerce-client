@@ -5,19 +5,11 @@ import React, { useEffect } from 'react'
 import CartItem from './CartItem/CartItem';
 import useStyles from './styles';
 
-export default function ({ cartItem }) {
+export default function ({ cartItem, onRemoveFromCart }) {
 
     const navigate = useNavigate();
     const classes = useStyles();
-
-    const Item = styled(Paper)(({ theme }) => ({
-        backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
-        ...theme.typography.body2,
-        padding: theme.spacing(2),
-        textAlign: 'center',
-        color: theme.palette.text.secondary,
-      }));
-
+    
     const getFrequency = (arr) => {
         const map = {};
         arr.forEach(item => {
@@ -45,31 +37,16 @@ export default function ({ cartItem }) {
         const uniqCart = [ ...new Set(cartItem)];
         let total = getTotal(cartItem);
         const handleCheckout = () => {
-            navigate('/checkout',{state:{amt: total.toFixed(2)}});
+            navigate('/checkout',{state:{amt: total.toFixed(2), cart: cartItem}});
         };
         console.log(total);
         return (
             <Container>
                 <Typography className={classes.title} variant="h3" gutterBottom>Your Shopping Cart</Typography>
-                {/* <Box sx={{ flexGrow: 1 }}>
-                <Grid container spacing={4} alignItems="center" justifyContent="center" style={{ minHeight: '50vh' }} >
-                    {
-                        uniqCart.map((item) => (
-                            <Grid key={item.id} xs={12} sm={6} md={4} lg={3}>
-                                <CartItem item={item} freq={freq} />
-                            </Grid>
-                        ))
-                    }
-                    <Grid item xs={12} md={12} >
-                        <Item>Total :- {total.toFixed(2)}</Item>
-                        <Button onClick={handleCheckout}>Checkout</Button>
-                    </Grid>
-                </Grid>
-                </Box> */}
                     <Grid container spacing={3}>
                         {uniqCart.map((item) => (
                         <Grid item xs={12} sm={4} key={item.id}>
-                            <CartItem item={item} freq={freq} />
+                            <CartItem item={item} freq={freq} onRemoveFromCart={onRemoveFromCart} />
                         </Grid>
                         ))}
                     </Grid>
