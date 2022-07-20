@@ -1,5 +1,5 @@
 import { AppBar, Avatar, Box, Button, IconButton, Toolbar, Typography } from '@mui/material';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useAuthState } from "react-firebase-hooks/auth";
 import { Link, useNavigate } from "react-router-dom";
 import { auth, db, logout } from "../Auth/firebase";
@@ -7,12 +7,14 @@ import { auth, db, logout } from "../Auth/firebase";
 export default function Navbar() {
 
     const [user, loading, error] = useAuthState(auth);
+    const [token, setToken] = useState('');
     const navigate = useNavigate();
 
     useEffect(() => {
         if (loading) return;
         if (!user) return navigate("/");
-        console.log(user);
+        console.log(user.accessToken)
+        localStorage.setItem("accessToken", user.accessToken)
       }, [user, loading]);
 
   return (

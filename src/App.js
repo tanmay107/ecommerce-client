@@ -16,14 +16,20 @@ export default function App() {
 
   const [products, setProducts] = useState([]);
   let cartItem = [];
-  const [user, loading, error] = useAuthState(auth);
 
   useEffect(() => {
     getProducts().then(x => setProducts(x))
-    // axios
-    //   .get("http://localhost:4000/products/")
-    //   .then(res => setProducts(res.data))
   }, []); 
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:4000/api/products/", {
+        headers : {
+          Authorization: 'Bearer ' + localStorage.getItem("accessToken"),
+        },
+      })
+      .then(res => console.log(res.data))
+  }, [])
   
   const PrivateRoute = ({ children }) => {
     useAuth();

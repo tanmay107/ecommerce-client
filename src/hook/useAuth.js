@@ -11,7 +11,7 @@ const useAuth = () => {
     useEffect(() => {
         if (loading) return;
         if (!user) return navigate("/");
-        console.log(user.uid);
+        // console.log(user.accessToken);
     }, [user, loading]);
 
     // return user;
