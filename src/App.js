@@ -14,32 +14,53 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import axios from 'axios';
 export default function App() {
 
-  const [products, setProducts] = useState([]);
+  const [user, loading, error] = useAuthState(auth);
   let cartItem = [];
 
-  useEffect(() => {
-    getProducts().then(x => setProducts(x))
-  }, []); 
-
-  useEffect(() => {
-    axios
-      .get("http://localhost:4000/api/products/", {
-        headers : {
-          Authorization: 'Bearer ' + localStorage.getItem("accessToken"),
-        },
-      })
-      .then(res => console.log(res.data))
-  }, [])
+  // useEffect(() => {
+  //   getProducts().then(x => setProducts(x))
+  // }, []); 
   
   const PrivateRoute = ({ children }) => {
     useAuth();
     return children;
   }
 
- 
   const handleAddToCart = (product) => {
     product.uid = user.uid;
     cartItem.push(product);
+
+    axios
+    .post("http://localhost:4000/api/carts/update", 
+      {
+        uid: localStorage.getItem("uid"),
+        cart: product
+    }
+    , {
+      headers : {
+        Authorization : 'Bearer ' + localStorage.getItem("accessToken"),
+        Id : "mFfcxrJ9DAnCUASbLOFC"
+      }
+    })
+    .then(res => console.log(res.data))
+    .catch(function (e) {
+      console.log(e)
+    });
+  }
+
+  const fetchCart = () => {
+    axios
+      .post("http://localhost:4000/api/carts", {
+        uid: localStorage.getItem("uid")
+      }, {
+        headers : {
+          Authorization : "Bearer " + localStorage.getItem("accessToken")
+        }
+      })
+      .then(res => console.log(res.data))
+      .catch((e) => {
+        console.log(e)
+      });
   }
 
   const handleRemoveFromCart = (product) => {
@@ -59,9 +80,6 @@ export default function App() {
       <Navbar />
         <Routes>
           <Route exact path="/" element={<Login />} />
-          {/* <Route path="/demo" element={<PrivateOutlet />}>
-            <Route element={<Demo />} />
-          </Route> */}
           <Route
             path="/demo"
             element={
@@ -74,7 +92,7 @@ export default function App() {
             path="/home"
             element={
               <PrivateRoute>
-                <Products products = {products} onAddToCart = {handleAddToCart} />
+                <Products onAddToCart = {handleAddToCart} />
               </PrivateRoute>
             }
           />

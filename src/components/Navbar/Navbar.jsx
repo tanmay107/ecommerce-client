@@ -7,7 +7,6 @@ import { auth, db, logout } from "../Auth/firebase";
 export default function Navbar() {
 
     const [user, loading, error] = useAuthState(auth);
-    const [token, setToken] = useState('');
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -15,6 +14,7 @@ export default function Navbar() {
         if (!user) return navigate("/");
         console.log(user.accessToken)
         localStorage.setItem("accessToken", user.accessToken)
+        localStorage.setItem("uid", user.uid)
       }, [user, loading]);
 
   return (

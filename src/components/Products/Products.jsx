@@ -1,9 +1,22 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Grid from "@material-ui/core/Grid";
 import Product from "./Product/Product";
 import useStyles from './styles';
+import axios from "axios";
 
-const Products = ({ products, onAddToCart }) => {
+const Products = ({ onAddToCart }) => {
+
+  const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:4000/api/products/", {
+        headers : {
+          Authorization: 'Bearer ' + localStorage.getItem("accessToken"),
+        },
+      })
+      .then(res => setProducts(res.data))
+  }, [])
 
   const classes = useStyles();
   return (
